@@ -297,3 +297,53 @@ After the three required examples work, try one change at a time:
 * W. Kohn and L. J. Sham, *Physical Review* **140**, A1133 (1965).
 * R. G. Parr and W. Yang, *Density-Functional Theory of Atoms and Molecules*,
   Oxford University Press (1989).
+
+## Supplied molecular test cases
+
+The repository includes complete H\(_2\)O and CH\(_4\) test cases following the
+same molecule/basis directory convention as Project #3:
+
+| Molecule | Input | Reference output |
+|---|---|---|
+| H\(_2\)O/STO-3G | [`input/h2o/STO-3G`](./input/h2o/STO-3G) | [`output/h2o/STO-3G/output.txt`](./output/h2o/STO-3G/output.txt) |
+| CH\(_4\)/STO-3G | [`input/ch4/STO-3G`](./input/ch4/STO-3G) | [`output/ch4/STO-3G/output.txt`](./output/ch4/STO-3G/output.txt) |
+
+Each input directory contains `geom.dat`, `enuc.dat`, `s.dat`, `t.dat`,
+`v.dat`, and `eri.dat` in exactly the formats described in Project #3. The
+additional `grid.dat` records the Cartesian midpoint quadrature used to make
+the reference output. Grid limits are half-open: generate points
+`min + (i + 0.5) * spacing` while the result is less than `max`; the weight of
+every point is `spacing^3`.
+
+These intentionally simple Cartesian grids make independent implementations
+reproducible, but they are **teaching grids**, not recommended molecular DFT
+quadratures. In particular, tight core functions converge slowly on a uniform
+Cartesian mesh. Reproduce the supplied files first, then replace this grid with
+an atom-centered radial/angular quadrature and demonstrate convergence of both
+the total energy and integrated electron count.
+
+### Running the two examples
+
+1. Copy or select one molecule's `STO-3G` directory; never mix matrices from
+   different directories.
+2. Determine `nao` from the largest one-electron-integral index and determine
+   the electron count from `geom.dat`. Both examples are neutral, closed-shell
+   ten-electron systems, so five spatial orbitals are occupied.
+3. Read the six Project #3 files and `grid.dat`, construct AO values at each
+   midpoint, and follow the SCF algorithm above using the stated spin-summed
+   density convention.
+4. Print an iteration table containing total energy, RMS density change, and
+   grid-integrated electron count. Print final orbital energies and
+   `Tr[P S]`. The supplied output uses these fields so results can be compared
+   line-by-line.
+5. First compare `Tr[P S]`, which should be ten to numerical precision. Then
+   compare the grid electron count and energy. Differences in either usually
+   indicate a basis normalization, AO ordering, grid-origin, or endpoint error.
+6. After matching the reference, halve the spacing. Treat the result as a grid
+   convergence study rather than expecting the coarse-grid energy to be a
+   chemically accurate literature value.
+
+CH\(_4\) also provides a useful symmetry check: its three occupied valence
+orbital energies and three virtual valence orbital energies occur in degenerate
+sets. A grid or AO ordering that breaks tetrahedral symmetry will spuriously
+split these values.
