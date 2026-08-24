@@ -1,0 +1,8 @@
+# Cartesian midpoint quadrature used for the reference output (bohr)
+x_min -7.5
+x_max  7.5
+y_min -7.5
+y_max  7.5
+z_min -7.5
+z_max  7.5
+spacing 0.60

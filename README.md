@@ -55,4 +55,5 @@ Now you should see a directory called `ProgrammingProjects` inside you will find
  - [Project #12](https://github.com/CrawfordGroup/ProgrammingProjects/tree/master/Project%2312): Excited Electronic States: CIS and TDHF/RPA
  - [Project #13](https://github.com/CrawfordGroup/ProgrammingProjects/tree/master/Project%2313): the Davidson-Liu Algorithm: CIS
  - [Project #14](https://github.com/CrawfordGroup/ProgrammingProjects/tree/master/Project%2314): Excited Electronic States: EOM-CCSD (*In Preparation*)
+ - [Project #15](./Project%2315): Density-functional theory (DFT), from a local-density example to a self-consistent Kohn–Sham implementation
  
